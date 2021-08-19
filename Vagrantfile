@@ -24,9 +24,9 @@ Vagrant.configure("2") do |config|
     control.vm.box_check_update = false
     control.vm.synced_folder "./rails/", "/home/vagrant/rails/"
   end
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
-
-  # config.vm.network "private_network", ip: "192.168.33.10"
+  # config.vm.network :forwarded_port, guest: 3000, host: 3000
+  # http://192.168.1.18:3000/
+  config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)"
 
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get -y install kernel-devel
