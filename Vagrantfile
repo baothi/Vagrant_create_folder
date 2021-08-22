@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
     config.vbguest.auto_update = false
   end
   config.vm.provider :virtualbox do |v|
-    v.memory = 1521
+    v.memory = 10521
     v.cpus = 4
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--ioapic", "on"]
@@ -35,22 +35,8 @@ Vagrant.configure("2") do |config|
     sudo adduser vagrant vboxsf
     sudo apt-get install -y curl
     sudo apt install unzip
-    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    sudo apt-get -y update
-    sudo apt-get -y install git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn
-    git config --global user.name "baothi"
-    git config --global user.email "baothi246@gmail.com"
-    ssh-keygen -t rsa -b 4096 -C "baothi246@gmail.com"
-    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-    exec $SHELL
-
-    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-    exec $SHELL
+    sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
   SHELL
 end
 
